@@ -44,7 +44,6 @@ function App() {
           return (
             <li key={item.id} className="todo-item">
               <input type="checkbox" value={item.done} />
-              {/* <input type="text" value={item.task} onChange={() => addTodo(item.id)} /> */}
               <span className="todo-item-text">{item.task} </span>
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
