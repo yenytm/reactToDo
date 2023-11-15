@@ -15,16 +15,16 @@ function App() {
     const newTodoList = toDos.filter((item) => item.id != id);
     setToDos(newTodoList);
   };
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-  }
+  };
+
   return (
     <div className="first">
       <h1>Weekly To Do</h1>
-      <form className="new-todo-cont"
-      					onSubmit={onSubmit}
-                >
+      <form id="toDoInput" className="new-todo-cont" onSubmit={onSubmit}>
         <input
+          id="inputTodo"
           type="text"
           value={newTodo}
           onChange={(event) => setNewTodo(event.target.value)}
@@ -44,11 +44,12 @@ function App() {
           return (
             <li key={item.id} className="todo-item">
               <input type="checkbox" value={item.done} />
-              <span className="todo-item-text">{item.task} </span>
+
+              <input className="todo-item-text" type="text" value={item.task} />
+
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
               </button>
-
             </li>
           );
         })}
