@@ -1,0 +1,27 @@
+body {
+  margin: auto;
+  max-width: 1280px;
+  background-color: aquamarine;
+}
+
+.first {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  gap: .5rem;
+}
+.todo-item{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
