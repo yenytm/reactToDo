@@ -71,7 +71,6 @@ function App() {
               key={item.id}
             >
               <input
-              
                 type="checkbox"
                 value={item.done}
                 onChange={(e) => changeTodoState(item.id, e.target.checked)}
