@@ -70,13 +70,13 @@ function App() {
               className={`todo-item ${item.done ? "done" : "not"} `}
               key={item.id}
             >
+
               <input
                 type="checkbox"
                 value={item.done}
                 onChange={(e) => changeTodoState(item.id, e.target.checked)}
-              />
+              /> 
               <input className="todo-item-text" type="text" value={item.task} onChange={(e)=> updateTask(item.id, e.target.value)}/>
-
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
               </button>
