@@ -18,20 +18,20 @@ function App() {
   };
 
   const updateTask = (id, task) => {
-    const newToDos = toDos.map((item) => {
-      if (item.id === id) {
-        console.log(task);
-        return { ...item, done: task };
+    const newToDos = toDos.map((todo)=>{
+      if (todo.id === id) {
+        return {...todo, task}
+      } else {
+        return todo
       }
-      return item;
-    });
+    })
 
-    setToDos(newToDos);
-  };
+    setToDos(newToDos)
+  }
 
   const changeTodoState = (id, state) => {
     const newTodoList = toDos.map((item) => {
-      if (toDos.id == id) {
+      if (item.id == id) {
         return { ...item, done: state };
       }
       return item;
@@ -45,9 +45,7 @@ function App() {
         {"📃"} Weekly To Do {"✔️"}
       </h1>
       <form
-        id="toDoInput"
-        className="new-todo-cont"
-        onSubmit={(e) => e.preventDefault()}
+      id="toDoInput" className="new-todo-cont" onSubmit={e => e.preventDefault()}
       >
         <input
           id="inputTodo"
@@ -73,16 +71,12 @@ function App() {
               key={item.id}
             >
               <input
+              
                 type="checkbox"
                 value={item.done}
                 onChange={(e) => changeTodoState(item.id, e.target.checked)}
               />
-              <input
-                className="todo-item-text "
-                type="text"
-                value={item.task}
-                onChange={(e) => updateTask(item.id, e.target.value)}
-              />
+              <input className="todo-item-text" type="text" value={item.task} onChange={(e)=> updateTask(item.id, e.target.value)}/>
 
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
