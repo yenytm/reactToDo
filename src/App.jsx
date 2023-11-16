@@ -47,6 +47,7 @@ function App() {
       <form
         id="toDoInput"
         className="new-todo-cont"
+        onSubmit={(e) => e.preventDefault()}
       >
         <input
           id="inputTodo"
