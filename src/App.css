@@ -1,14 +1,16 @@
 body {
   margin: auto;
   max-width: 1280px;
-  background-color: aquamarine;
+  background-color: rgb(20, 48, 41);
 }
 
 .first {
   max-width: 600px;
   margin: auto;
+  margin-top: 20px;
   text-align: center;
   background-color: rgb(255, 255, 255);
+  border: 2px dashed rgb(10, 10, 10);
 }
 
 .todo-list {
@@ -18,13 +20,23 @@ body {
   margin: 0;
   padding: 0;
   gap: .5rem;
+  padding-bottom: 15px;
+  padding-top: 15px;
+
 }
 .todo-item{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   
 }
 .todo-item.done {
 	opacity: 0.5 ;
+}
+#toDoInput {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  gap: 5px;
+
 }
