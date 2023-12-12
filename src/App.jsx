@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { db } from "./firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 function App() {
   const [toDos, setToDos] = useState([]);
@@ -39,6 +41,21 @@ function App() {
     setToDos(newTodoList);
   };
 
+
+
+  useEffect (()=> {
+    const todoReference = collection(db, "todos"); //"" depends on your fb collections name
+    const getData = async()=> {
+      const data = await getDocs(todoReference);
+      const todos = data.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setToDos(todos);
+    };
+    getData()
+  }, []);
+
   return (
     <div className="first">
       <h1>
@@ -76,7 +93,7 @@ function App() {
                 value={item.done}
                 onChange={(e) => changeTodoState(item.id, e.target.checked)}
               /> 
-              <input className="todo-item-text" type="text" value={item.task} onChange={(e)=> updateTask(item.id, e.target.value)}/>
+              <input className="todo-item-text" type="text" value={item.text} onChange={(e)=> updateTask(item.id, e.target.value)}/>
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
               </button>

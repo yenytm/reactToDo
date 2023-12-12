@@ -1,7 +1,7 @@
 body {
   margin: auto;
   max-width: 1280px;
-  background-color: rgb(20, 48, 41);
+  background-color: rgb(245, 243, 245);
 }
 
 .first {
@@ -10,7 +10,7 @@ body {
   margin-top: 20px;
   text-align: center;
   background-color: rgb(255, 255, 255);
-  border: 2px dashed rgb(10, 10, 10);
+  border: 2px dashed rgb(148, 3, 150);
 }
 
 .todo-list {
