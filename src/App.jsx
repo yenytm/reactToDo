@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { db } from "./firebase";
+import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 function App() {
   const [toDos, setToDos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
-  const addTodo = (task) => {
+
+
+  const addTodo = async (task) => {
     if (!task) return;
+    const todoReference = collection(db, "todos");
+    await addDoc(todoReference, {
+      task: task,
+      done: false,
+    }).then((docRef) =>{
+
     const newTodoList = [
       ...toDos,
-      { id: toDos.length + 1, task: task, done: false },
+      {task: task, done: false, id: docRef.id },
     ];
     setToDos(newTodoList);
+  });
   };
-  const deleteTodo = (id) => {
+
+
+  const deleteTodo = async (id) => {
+    await deleteDoc(doc(db, "todos", id))
     const newTodoList = toDos.filter((item) => item.id != id);
     setToDos(newTodoList);
   };
@@ -38,6 +52,21 @@ function App() {
     });
     setToDos(newTodoList);
   };
+
+
+
+  useEffect (()=> {
+    const todoReference = collection(db, "todos"); //"" depends on your fb collections name
+    const getData = async()=> {
+      const data = await getDocs(todoReference);
+      const todos = data.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setToDos(todos);
+    };
+    getData()
+  }, []);
 
   return (
     <div className="first">
@@ -69,6 +98,7 @@ function App() {
             <li
               className={`todo-item ${item.done ? "done" : "not"} `}
               key={item.id}
+              id={item.id}
             >
 
               <input
