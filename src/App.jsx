@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { db } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 function App() {
   const [toDos, setToDos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
-  const addTodo = (task) => {
+
+
+  const addTodo = async (task) => {
     if (!task) return;
+    const todoReference = collection(db, "todos");
+    await addDoc(todoReference, {
+      task: task,
+      done: false,
+    }).then((docRef) =>{
+
     const newTodoList = [
       ...toDos,
-      { id: toDos.length + 1, task: task, done: false },
+      {task: task, done: false, id: docRef.id },
     ];
     setToDos(newTodoList);
+  });
   };
-  const deleteTodo = (id) => {
+
+
+  const deleteTodo = async (id) => {
+    await deleteDoc(doc(db, "todos", id))
     const newTodoList = toDos.filter((item) => item.id != id);
     setToDos(newTodoList);
   };
@@ -86,6 +98,7 @@ function App() {
             <li
               className={`todo-item ${item.done ? "done" : "not"} `}
               key={item.id}
+              id={item.id}
             >
 
               <input
@@ -93,7 +106,7 @@ function App() {
                 value={item.done}
                 onChange={(e) => changeTodoState(item.id, e.target.checked)}
               /> 
-              <input className="todo-item-text" type="text" value={item.text} onChange={(e)=> updateTask(item.id, e.target.value)}/>
+              <input className="todo-item-text" type="text" value={item.task} onChange={(e)=> updateTask(item.id, e.target.value)}/>
               <button onClick={() => deleteTodo(item.id)} className="delete">
                 ❌
               </button>
